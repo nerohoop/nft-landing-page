@@ -26,7 +26,7 @@ import Arrow from "../assets/Arrow.svg";
 
 const Container = styled.div`
   width: 25vw;
-  height: 70vh;
+  height: 55vh;
 
   .swiper {
     width: 100%;
@@ -40,6 +40,10 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .swiper-slide img {
+    width: 100%;
   }
 
   .swiper-button-next {

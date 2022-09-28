@@ -26,7 +26,7 @@ const Container = styled.div`
 
 const Box = styled.div`
   width: 50%;
-  height: 100%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,7 +62,7 @@ const Subtext = styled.p`
 
 const ButtonContainer = styled.div`
   width: 80%;
-  margin: 0 auto;
+  margin: 1rem auto;
   align-self: flex-start;
 `;
 

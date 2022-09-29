@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import styled from "styled-components";
 import DrawSvg from "../DrawSvg";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const Section = styled.section`
   min-height: 100vh;
@@ -24,7 +26,7 @@ const Title = styled.h1`
 `;
 
 const Container = styled.div`
-  width: 70%;
+  width: 80%;
   height: 200vh;
   background-color: ${(props) => props.theme.body};
   margin: 0 auto;
@@ -48,10 +50,121 @@ const Items = styled.ul`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: lightblue;
+  // background-color: lightblue;
+  padding: 0;
+
+  & > *:nth-of-type(2n + 1) {
+    justify-content: start;
+
+    div {
+      border-radius: 50px 0 50px 0;
+      text-align: right;
+    }
+    p {
+      border-radius: 40px 0 40px 0;
+    }
+  }
+
+  & > *:nth-of-type(2n) {
+    justify-content: end;
+
+    div {
+      border-radius: 0 50px 0 50px;
+      text-align: left;
+    }
+    p {
+      border-radius: 0 40px 0 40px;
+    }
+  }
 `;
 
+const Item = styled.li`
+  width: 100%;
+  height: 100%;
+  display: flex;
+`;
+
+const ItemContainer = styled.div`
+  width: 40%;
+  height: fit-content;
+  padding: 1rem;
+  border: 3px solid ${(props) => props.theme.text};
+`;
+
+const Box = styled.p`
+  height: fit-content;
+  background-color: ${(props) => props.theme.carouselColor};
+  color: ${(props) => props.theme.text};
+  padding: 1rem;
+  position: relative;
+  border: 1px solid ${(props) => props.theme.text};
+`;
+
+const SubTitle = styled.span`
+  display: block;
+  font-size: ${(props) => props.theme.fontxl};
+  text-transform: capitalize;
+  color: ${(props) => props.theme.text};
+`;
+
+const Text = styled.span`
+  display: block;
+  font-size: ${(props) => props.theme.fontsm};
+  text-transform: capitalize;
+  color: ${(props) => props.theme.text};
+
+  font-weight: 400;
+  margin: 0.5rem 0;
+`;
+
+const RoadMapItem = ({ title, subtext, addToRef }) => {
+  return (
+    <Item ref={addToRef}>
+      <ItemContainer>
+        <Box>
+          <SubTitle>{title}</SubTitle>
+          <Text>{subtext}</Text>
+        </Box>
+      </ItemContainer>
+    </Item>
+  );
+};
+
 const Roadmap = () => {
+  const revealRefs = useRef([]);
+  revealRefs.current = [];
+  gsap.registerPlugin(ScrollTrigger);
+
+  const addToRefs = (el) => {
+    if (el && !revealRefs.current.includes(el)) {
+      revealRefs.current.push(el);
+    }
+  };
+
+  useLayoutEffect(() => {
+    let t1 = gsap.timeline();
+    revealRefs.current.forEach((el, index) => {
+      t1.fromTo(
+        el.childNodes[0],
+        {
+          y: "0",
+        },
+        {
+          y: "-30%",
+
+          scrollTrigger: {
+            id: `section-${index + 1}`,
+            trigger: el,
+            start: "top center+=200px",
+            end: "bottom center",
+            scrub: true,
+          },
+        }
+      );
+    });
+    return () => {};
+  }, []);
+
   return (
     <Section>
       <Title>Roadmap</Title>
@@ -60,12 +173,32 @@ const Roadmap = () => {
           <DrawSvg />
         </SvgCotainer>
         <Items>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-          <li>6</li>
+          <Item>&nbsp;</Item>
+          <RoadMapItem
+            addToRef={addToRefs}
+            title="Grand Opening"
+            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat."
+          />
+          <RoadMapItem
+            addToRef={addToRefs}
+            title="Great Benefits"
+            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat."
+          />
+          <RoadMapItem
+            addToRef={addToRefs}
+            title="Early Access"
+            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat."
+          />
+          <RoadMapItem
+            addToRef={addToRefs}
+            title="New Merch"
+            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat."
+          />
+          <RoadMapItem
+            addToRef={addToRefs}
+            title="Holders Ranking"
+            subtext="Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit. At Repellat Placeat, Adipisicing Elit. At Repellat Placeat."
+          />
         </Items>
       </Container>
     </Section>

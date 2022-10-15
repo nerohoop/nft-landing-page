@@ -40,25 +40,29 @@ const Box = styled.div`
 `;
 
 const FAQ = () => {
-  // const ref = useRef(null);
-  // gsap.registerPlugin(ScrollTrigger);
-  // useLayoutEffect(() => {
-  //   let element = ref.current;
+  const ref = useRef(null);
 
-  //   ScrollTrigger.create({
-  //     trigger: element,
-  //     start: "top top",
-  //     end: "bottom top",
-  //     pin: true,
-  //     pinSpaceing: false,
-  //     scrub: true,
-  //   });
+  gsap.registerPlugin(ScrollTrigger);
 
-  //   return () => {};
-  // }, []);
+  useLayoutEffect(() => {
+    let element = ref.current;
+
+    ScrollTrigger.create({
+      trigger: element,
+      start: "top top",
+      end: "bottom top",
+      pin: true,
+      pinSpaceing: false,
+      scrub: true,
+    });
+
+    return () => {
+      // ScrollTrigger.kill();
+    };
+  }, []);
 
   return (
-    <Section>
+    <Section ref={ref}>
       <Title>FAQ</Title>
       <Container>
         <Box>

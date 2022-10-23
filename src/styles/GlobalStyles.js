@@ -3,6 +3,11 @@ import "@fontsource/sora";
 import "@fontsource/akaya-telivigala";
 
 const GlobalStyles = createGlobalStyle`
+
+// *{
+//   outline: 1px solid red !important;
+// }
+
 *, *::before, *::after, {
   margin: 0;
   padding: 0;
@@ -26,8 +31,6 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-
 `;
 
 export default GlobalStyles;

@@ -13,6 +13,10 @@ const LogoText = styled.h1`
   &:hover {
     transform: scale(1.1);
   }
+
+  @media (max-width: 64rem) {
+    font-size: ${(props) => props.theme.fontxxl};
+  }
 `;
 
 const Logo = () => {

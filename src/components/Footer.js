@@ -167,14 +167,7 @@ const Footer = () => {
         <span>
           &copy; {new Date().getFullYear()} Weirdos Club. All rights reserved.
         </span>
-        <span>
-          Made with &#10084; by{" Xiao "}
-          <a
-            href="http://youtube.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-        </span>
+        <span>Made with &#10084; by{" Xiao "}</span>
       </Bottom>
     </Section>
   );
